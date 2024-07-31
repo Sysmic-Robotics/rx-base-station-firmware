@@ -54,17 +54,16 @@ UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
-uint8_t serial_data[32]={'H','o','l','a'};
+uint8_t serial_data[32]="Rx Basestation ON              \n";
 volatile uint32_t serial_len;
 volatile uint8_t send_flag = 0;
 
 uint8_t status;
 
-nRF24_Handler_t tx_device;
 nRF24_Handler_t rx_device;
 uint8_t rx_len = 32;
 
-uint8_t tx_node_addr[5] = {'s', 'y', 's', 't', 'x'};
+uint8_t tx_node_addr[5] = {'s', 'y', 's', 't', 'x'}; //ref in ssl robot
 uint8_t rx_node_addr[5] = {'s', 'y', 's', 'r', 'x'};
 
 uint8_t debug_reg[5];
