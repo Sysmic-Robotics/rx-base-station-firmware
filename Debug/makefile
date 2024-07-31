@@ -60,8 +60,8 @@ all: main-build
 main-build: RX-base-station-f103c6.elf secondary-outputs
 
 # Tool invocations
-RX-base-station-f103c6.elf RX-base-station-f103c6.map: $(OBJS) $(USER_OBJS) C:\Users\nicolas\Desktop\Sysmic\RxBaseStation\STM32F103C6TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "RX-base-station-f103c6.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\nicolas\Desktop\Sysmic\RxBaseStation\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RX-base-station-f103c6.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+RX-base-station-f103c6.elf RX-base-station-f103c6.map: $(OBJS) $(USER_OBJS) C:\Users\Robocup\Desktop\RxBaseStation\STM32F103C6TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "RX-base-station-f103c6.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Robocup\Desktop\RxBaseStation\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="RX-base-station-f103c6.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
