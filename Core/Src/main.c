@@ -38,7 +38,7 @@ enum {
 #define LED_GPIO_PORT           GPIOC
 #define LED_GPIO_PIN            GPIO_PIN_13
 
-#define nRF24L01_SYSMIC_CHANNEL 0x6A
+#define nRF24L01_SYSMIC_CHANNEL 0x6B
 #define TX_ONLY         0x01
 /* USER CODE END PD */
 
@@ -191,60 +191,18 @@ int main(void)
   {
 
 	status = nRF24_GetStatus(&rx_device);
-	if(status & nRF24_FLAG_RX_DR) {
-		uint8_t flag =1;
-		while(flag){
-			switch (nRF24_ReadPayload(&rx_device, rx_device.rx_data, &rx_len))
-			  {
-				case nRF24_PIPE0:
-					nRF24_FlushRX(&rx_device);
-					nRF24_ClearIRQFlags(&rx_device);
+	
+	if (status & nRF24_FLAG_RX_DR) {
+    // Leer todos los paquetes disponibles
+    while (nRF24_ReadPayload(&rx_device, rx_device.rx_data, &rx_len) != nRF24_RX_EMPTY) {
+        // Procesar el contenido de rx_device.rx_data
+        HAL_UART_Transmit(&huart1, rx_device.rx_data, rx_len, HAL_MAX_DELAY);
+    }
 
-					HAL_UART_Transmit(&huart1, rx_device.rx_data, rx_len, HAL_MAX_DELAY);
-					break;
-
-				case nRF24_PIPE1:
-					nRF24_FlushRX(&rx_device);
-					nRF24_ClearIRQFlags(&rx_device);
-
-					HAL_UART_Transmit(&huart1, rx_device.rx_data, rx_len, HAL_MAX_DELAY);
-					break;
-
-				case nRF24_PIPE2:
-					nRF24_FlushRX(&rx_device);
-					nRF24_ClearIRQFlags(&rx_device);
-
-					HAL_UART_Transmit(&huart1, rx_device.rx_data, rx_len, HAL_MAX_DELAY);
-					break;
-
-				case nRF24_PIPE3:
-					nRF24_FlushRX(&rx_device);
-					nRF24_ClearIRQFlags(&rx_device);
-
-					HAL_UART_Transmit(&huart1, rx_device.rx_data, rx_len, HAL_MAX_DELAY);
-					break;
-
-				case nRF24_PIPE4:
-					nRF24_FlushRX(&rx_device);
-					nRF24_ClearIRQFlags(&rx_device);
-
-					HAL_UART_Transmit(&huart1, rx_device.rx_data, rx_len, HAL_MAX_DELAY);
-					break;
-
-				case nRF24_PIPE5:
-					nRF24_FlushRX(&rx_device);
-					nRF24_ClearIRQFlags(&rx_device);
-
-					HAL_UART_Transmit(&huart1, rx_device.rx_data, rx_len, HAL_MAX_DELAY);
-					break;
-
-				default:
-					flag=0;
-					break;
-
-			  }
-		}
-	}
+    // Al terminar de leer todos los paquetes, limpiar las banderas e, incluso, hacer flush si lo deseas
+    nRF24_FlushRX(&rx_device);
+    nRF24_ClearIRQFlags(&rx_device);
+  }
 
 
     /* USER CODE END WHILE */
@@ -347,7 +305,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 460800;//115200;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
@@ -462,6 +420,7 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+    NVIC_SystemReset(); // Reset the system to recover from error
   }
   /* USER CODE END Error_Handler_Debug */
 }

@@ -35,17 +35,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_rnglists 0000076a  00000000  00000000  00011718  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00016eef  00000000  00000000  00011e82  2**0
+ 16 .debug_macro  00016f3d  00000000  00000000  00011e82  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000affb  00000000  00000000  00028d71  2**0
+ 17 .debug_line   0000ac29  00000000  00000000  00028dbf  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00081f6c  00000000  00000000  00033d6c  2**0
+ 18 .debug_str    000820af  00000000  00000000  000339e8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  000b5cd8  2**0
+ 19 .comment      00000043  00000000  00000000  000b5a97  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000026f0  00000000  00000000  000b5d1c  2**2
+ 20 .debug_frame  000026f0  00000000  00000000  000b5adc  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000005c  00000000  00000000  000b840c  2**0
+ 21 .debug_line_str 00000074  00000000  00000000  000b81cc  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -133,7 +133,7 @@ int main(void)
  800017e:	48a9      	ldr	r0, [pc, #676]	@ (8000424 <main+0x2d8>)
  8000180:	f000 fbd9 	bl	8000936 <nRF24_Init>
   nRF24_SetRFChannel(&rx_device, nRF24L01_SYSMIC_CHANNEL);
- 8000184:	216a      	movs	r1, #106	@ 0x6a
+ 8000184:	216b      	movs	r1, #107	@ 0x6b
  8000186:	48a7      	ldr	r0, [pc, #668]	@ (8000424 <main+0x2d8>)
  8000188:	f000 fc80 	bl	8000a8c <nRF24_SetRFChannel>
   nRF24_ReadMBReg(&rx_device, nRF24_REG_RX_ADDR_P0, debug_reg, 5);
@@ -733,9 +733,9 @@ static void MX_USART1_UART_Init(void)
  8000548:	4b11      	ldr	r3, [pc, #68]	@ (8000590 <MX_USART1_UART_Init+0x4c>)
  800054a:	4a12      	ldr	r2, [pc, #72]	@ (8000594 <MX_USART1_UART_Init+0x50>)
  800054c:	601a      	str	r2, [r3, #0]
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 460800;//115200;
  800054e:	4b10      	ldr	r3, [pc, #64]	@ (8000590 <MX_USART1_UART_Init+0x4c>)
- 8000550:	f44f 32e1 	mov.w	r2, #115200	@ 0x1c200
+ 8000550:	f44f 22e1 	mov.w	r2, #460800	@ 0x70800
  8000554:	605a      	str	r2, [r3, #4]
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
  8000556:	4b0e      	ldr	r3, [pc, #56]	@ (8000590 <MX_USART1_UART_Init+0x4c>)
